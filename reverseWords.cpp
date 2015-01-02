@@ -56,10 +56,9 @@ public:
         		if (first_time==0){first_time=1;}
         		else{tmp+=" ";}
 
-        		// so now it is "retep", and reverse it to "peter" and append to the final rev_string
-				for (std::string::reverse_iterator rit=tmp.rbegin(); rit!=tmp.rend(); ++rit){
-					rev_string+= *rit;
-				}    
+        		// so now it is "retep", and reverse it to "peter" and append to the final rev_string				
+				reverse(tmp.begin(), tmp.end());
+				rev_string+= tmp;
         	}
         }
         if (rev_string.empty()){s="";}
@@ -70,10 +69,11 @@ public:
 
 
 int main(){
-	string S=" ";
+	string S=" I am peter";
 	Solution mysol;
 	cout<<S<<endl;
-	cout<<mysol.reverseWords(S)<<"_"<<endl;
+	mysol.reverseWords(S);
+	cout<<S<<endl;
 
 
 }
