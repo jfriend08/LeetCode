@@ -28,18 +28,15 @@ using namespace std;
 class Solution {
 public:
     int majorityElement(vector<int> &num) {
-    	int bound=floor (num.size()/2);
-    	map <int, int> mymap;
-    	for (int i = 0; i!=num.size(); i++){
-    		if (!mymap[num[i]]) mymap[ num[i] ] =1;    		
-    		else mymap[ num[i] ]= mymap[ num[i] ] +1;
-    		
-    	}
-    	
-    	for (std::map<int, int>::iterator it= mymap.begin(); it != mymap.end(); it ++){
-    		if (it->second > bound) return it->first;    		
-    	}
-    	return 1;        
+    	int major, vectorsize=num.size(), bound= vectorsize/2;        
+        for (int count=0, i=0; i<vectorsize && count<=bound; i++){
+            if (count==0){
+                major= num[i];
+                count++;
+            }
+            else major == num[i] ? count++ : count--;
+        }
+        return major;
     }
 };
 
