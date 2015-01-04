@@ -38,22 +38,25 @@ public:
         do {
           string v1_front, v2_front;
           int v1_fint, v2_fint, v1_found, v2_found;
+          // checks are used for checking there is a "."
           int v1_check=version1.find('.'), v2_check=version2.find('.');
 
+          // if there is ".", then get the index. else (which means there is no "."), the the full length
           if (v1_check !=-1) v1_found=version1.find('.');
           else v1_found=version1.length();
           if (v2_check !=-1) v2_found=version2.find('.');
           else v2_found=version2.length();
 
+          // the the substring (if "." existed), or full string (if "." not existed)
           v1_front=version1.substr(0,v1_found);
           v2_front=version2.substr(0,v2_found);  
-          
-          cout<<v1_front<<"_hi_"<<v2_front<<endl;
-          
+                    
+          // convert string to int. c_str is used for sting -> int
           v1_fint=atoi(v1_front.c_str());
           v2_fint=atoi(v2_front.c_str());
           
-          if (v1_fint > v2_fint) return 1;
+
+          if (v1_fint > v2_fint) return 1;  // the compar
           else if (v1_fint < v2_fint) return -1;
           else if ((v1_fint == v2_fint) && v1_check==-1 && v2_check==-1 )return 0;
 
@@ -70,27 +73,6 @@ public:
         else if (version2.empty() && atoi(version1.c_str())!=0) return 1;
 
         else return 10;
-
-
-
-        // string v1_front, v1_back, v2_front, v2_back;
-        // v1_front=version1.substr(0,version1.find('.'));
-        // if (version1.find('.')!=-1) v1_back=version1.substr(version1.find('.')+1);
-        // else v1_back="0";
-        // v2_front=version2.substr(0,version2.find('.'));
-        // if (version2.find('.')!=-1) v2_back=version2.substr(version2.find('.')+1);
-        // else v2_back="0";
-
-        // int v1_fint=atoi (v1_front.c_str()), v1_bint=atoi (v1_back.c_str()), v2_fint=atoi (v2_front.c_str()), v2_bint=atoi (v2_back.c_str());
-        // cout<<v1_fint<<" "<<v1_bint<<" "<<v2_fint<<" "<<v2_bint<<endl;
-        // if (v1_fint > v2_fint) return 1;
-        // else if (v1_fint < v2_fint) return -1;
-        // else {
-
-        //   if (v1_bint > v2_bint) return 1;
-        //   else if (v1_bint < v2_bint) return -1;
-        //   else return 0;
-        // }
     }
 };
 
