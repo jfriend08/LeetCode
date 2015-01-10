@@ -59,6 +59,42 @@ public:
     		return inordervector;
     	}
     }
+
+    vector<int> inorderTraversal_stack(TreeNode *root) {
+    	vector <int> inordervector;
+    	stack<TreeNode*> mystack;
+    	
+    	if (root){
+    		mystack.push(root);    		
+    		
+    		while (!mystack.empty()){    			
+    			// now here, rool is always point to the top elm of the stack
+    			if (root->left){
+    				mystack.push(root->left);
+    				root = root->left;
+    			}
+    			else if (root->right){
+    				inordervector.push_back(mystack.top()->val);
+    				mystack.pop();
+    				mystack.push(root->right);
+    				root = root->right;
+    			}
+    			
+    			else{
+    				inordervector.push_back(root->val);
+    				mystack.pop();
+    				if (!mystack.empty()){
+    					root=mystack.top();
+    					root->left=NULL;	
+    				}
+    				
+    				
+    			}
+    		}
+    		return inordervector;    		
+    	}
+    }
+
 };
 
 
