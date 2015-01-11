@@ -1,13 +1,19 @@
 /*
-Compare two version numbers version1 and version1.
-If version1 > version2 return 1, if version1 < version2 return -1, otherwise return 0.
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
 
-You may assume that the version strings are non-empty and contain only digits and the . character.
-The . character does not represent a decimal point and is used to separate number sequences.
-For instance, 2.5 is not "two and a half" or "half way to version three", it is the fifth second-level revision of the second first-level revision.
+For example, this binary tree is symmetric:
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
 
-Here is an example of version numbers ordering:
-0.1 < 1.1 < 1.2 < 13.37
+But the following is not:
+    1
+   / \
+  2   2
+   \   \
+   3    3
 
 */
 
@@ -40,15 +46,7 @@ using namespace std;
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+
 class Solution {
 public:
     // recursive method
