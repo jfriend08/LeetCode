@@ -51,6 +51,21 @@ using namespace std;
  */
 class Solution {
 public:
+    // recursive method
+    bool isSymmetricRecursive(TreeNode *leftNode, TreeNode *rightNode){
+        if (leftNode ==NULL && rightNode ==NULL) return true;
+        else if (leftNode && rightNode && leftNode->val == rightNode->val)  {
+            return ( isSymmetricRecursive(leftNode->left, rightNode->right) && isSymmetricRecursive(leftNode->right, rightNode->left) );
+        }
+        else if (leftNode ==NULL || rightNode ==NULL) return false;
+        return false;
+    }
+    
+    bool isSymmetric(TreeNode *root) {
+        return (!root || isSymmetricRecursive(root->left, root->right) ) ;
+    }
+
+    // iterative method
     bool isSymmetric(TreeNode *root) {
         if(root){
             queue<TreeNode*> lQ, rQ;
