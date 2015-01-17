@@ -38,38 +38,32 @@ There is a more generic way of solving this problem.
 using namespace std;
 class Solution {
 public:
-    bool isPalindrome(int x) {     
-     cout<<"x:"<<x<<endl;
+    bool isPalindrome(int x) {          
      if (x<0) return false;   
-     else if (x==0) return true;
-
-     int count=0, oper=x;
-     int last_digit=x%10;
-
-     while(oper>=10){
-	    oper=oper/10;	 
-     	count++;
+     vector<int> myvector;
+     while (x!=0){
+      myvector.push_back(x%10);
+      x=x/10;
      }
-     
-     if (x<=9 && x>=1) return true;
-     else if (oper== last_digit) {
-     	int next= (x-oper*pow(10,count))/10;
-     	return isPalindrome(next);
+     for (int i=0; i<myvector.size();i++){
+      // cout<<myvector[i]<<" vs "<<myvector[myvector.size()-i-1]<<endl;
+      if(myvector[i]!=myvector[myvector.size()-i-1])return false;      
      }
-     else return false;
-
+     // cout<<endl;
+     return true;
     }
 };
 
 int main(){
   Solution sol;  
-  // cout<<sol.isPalindrome(1)<<endl;
-  // cout<<sol.isPalindrome(9)<<endl;
-  // cout<<sol.isPalindrome(-1)<<endl;
-  // cout<<sol.isPalindrome(1234321)<<endl;
-  // cout<<sol.isPalindrome(101)<<endl;
-  // cout<<sol.isPalindrome(102)<<endl;
-  // cout<<sol.isPalindrome(100001)<<endl;
+  cout<<sol.isPalindrome(1)<<endl;
+  cout<<sol.isPalindrome(9)<<endl;
+  cout<<sol.isPalindrome(-1)<<endl;
+  
+  cout<<sol.isPalindrome(1234321)<<endl;
+  cout<<sol.isPalindrome(101)<<endl;
+  cout<<sol.isPalindrome(102)<<endl;
+  cout<<sol.isPalindrome(100001)<<endl;
   cout<<sol.isPalindrome(1000021)<<endl;
 
 }
