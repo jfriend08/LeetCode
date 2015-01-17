@@ -45,8 +45,7 @@ public:
         else if(*s == ' '){                    
           s++;
           bit=true;
-        }
-        
+        }        
       }
       return length;
     }
