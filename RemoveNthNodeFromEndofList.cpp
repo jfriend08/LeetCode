@@ -46,6 +46,8 @@ using namespace std;
  */
 class Solution {
 public:
+    
+    // this used pointer of a pointer
     ListNode *removeNthFromEnd(ListNode *head, int n) {
         ListNode *p1=head, **p2=&head;
         // make p1 is n+1 steps ahead
@@ -62,8 +64,36 @@ public:
         *p2= (*p2)->next;
         return head;
     }
+
+    // this used pointer method
+    ListNode *removeNthFromEnd(ListNode *head, int n) {
+        ListNode *p1=head;
+        ListNode *previous=NULL, *p2=head;
+        
+        // make p1 n steps ahead
+        for (int i=0; i<n; i++){
+            p1=p1->next;
+        }
+        
+        // so, if at this point and p1 is already NULL
+        // then, this means n is the full length, and we want to delet the first element of list
+        if (p1 ==NULL){
+            head=head->next;
+        }
+        
+        else{
+            while (p1 != NULL){
+                p1=p1->next;
+                previous=p2;
+                p2=p2->next;
+            }
+            previous->next=p2->next;    
+        }
+        return head;
+    }
     
 };
+
 
 
 
