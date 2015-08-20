@@ -49,6 +49,8 @@ public:
     int valP = p->val;
     int valQ = q->val;
     int valRoot = root->val;
+    if (root == p || root == q || root == NULL) return root;
+
     if ((valP>=valRoot && valQ<valRoot) || (valP<valRoot && valQ>=valRoot)) {
       return root;
     } else if (valP<valRoot && valQ<valRoot) {
