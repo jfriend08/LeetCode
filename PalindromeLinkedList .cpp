@@ -37,32 +37,57 @@ using namespace std;
 class Solution {
 public:
   bool isPalindrome(ListNode* head) {
-    int len = 0;
 
+    int len = 0;
+    // check length
     ListNode* pAhead = head;
     while(pAhead) {
       len++;
       pAhead = pAhead->next;
     }
 
-    int half;
+    if (len == 1) {
+      return true;
+    } else if (len ==0) {
+      return false;
+    }
+
+    // devide half number
+    int half,count = 0;
     if (len%2==0) {
       half = len/2;
     } else {
-      half = len/2 +1;
+      half = len/2 + 1;
     }
 
     ListNode* pForward = head;
     ListNode* revLinkList = NULL;
-    int count = 0;
-    while(pForward && count!= half) {
+
+    while(pForward && count<half) {
       count++;
-      ListNode* next = pForward->next;
-      ListNode* tmp = next;
-      tmp ->next = revLinkList;
-      revLinkList = next;
+      if (count < half){
+        ListNode* tmp = pForward;
+        tmp->next = revLinkList;
+        revLinkList = tmp;
+      }
+      pForward = pForward->next;
     }
 
+    if(len%2==0) {
+      pForward = pForward->next;
+    }
+
+    ListNode* pReverse;
+    while(pForward) {
+      int forwardVal = pForward->val;
+      int revVal = pReverse->val;
+      if(forwardVal != revVal) {
+        return false;
+      }
+      pForward = pForward->next;
+      pReverse = pReverse->next;
+    }
+    return true;
   }
 };
 
