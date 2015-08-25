@@ -13,3 +13,4 @@ class Solution(object):
             return True
           except:
             dupDict[nums[idx]] = 1
+        return False
