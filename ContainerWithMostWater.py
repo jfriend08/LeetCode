@@ -8,15 +8,16 @@ Note: You may not slant the container.
 
 class Solution(object):
     def maxArea(self, height):
-      myMap = {}
-      firstH = sys.minint
-      secondH = sys.minint
-      for idx in range(len(height)):
-        eachH = height[idx]
-        if eachH >= firstH:
-          firstH = eachH
-          myMap[firstH] = idx
-        elif:
-          eachH > firstH:
+      left_idx = 0
+      right_idx = len(height)-1
+      biggestArea = 0
+      while left_idx < right_idx:
+        left_height = height[left_idx]
+        right_height = height[right_idx]
+        biggestArea = max(biggestArea, min(left_height, right_height) * (right_idx - left_idx))
+        if left_height <= right_height:
+          left_idx += 1
+        else:
+          right_idx -= 1
 
-
+      return biggestArea
