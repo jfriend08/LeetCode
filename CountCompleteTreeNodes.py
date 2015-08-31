@@ -13,15 +13,35 @@ In a complete binary tree every level, except possibly the last, is completely f
 #         self.right = None
 
 class Solution(object):
-    def __init__(self):
-      self.depth = 0
-      self.numLastNodes = 0
+    def getLeftDepth (self, root):
+      depth = 0
+      while(root):
+        depth += 1
+        root = root.left
+      return depth
 
-    def travel(self, root):
+    def getRightDepth (self, root):
+      depth = 0
+      while(root):
+        depth += 1
+        root = root.right
+      return depth
 
     def countNodes(self, root):
-      if root == None:
+      if not root:
         return 0
 
-      self.travel(root)
-      totalNum = 2**self.depth + self.numLastNodes
+      left_d = self.getLeftDepth(root.left)
+      right_d = self.getRightDepth(root.right)
+
+      if left_d == right_d:
+        return 2**(left_d+1) - 1
+      else:
+        return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+
+
+
+
+
+
+
