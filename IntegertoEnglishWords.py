@@ -16,33 +16,33 @@ class Solution(object):
     def __init__(self):
       self.numberToWordsMap = {}
       self.numberToWordsMap[0] = ''
-      self.numberToWordsMap[1] = 'One '
-      self.numberToWordsMap[2] = 'Two '
-      self.numberToWordsMap[3] = 'Three '
-      self.numberToWordsMap[4] = 'Four '
-      self.numberToWordsMap[5] = 'Five '
-      self.numberToWordsMap[6] = 'Six '
-      self.numberToWordsMap[7] = 'Seven '
-      self.numberToWordsMap[8] = 'Eight '
-      self.numberToWordsMap[9] = 'Nine '
-      self.numberToWordsMap[10] = 'Ten '
-      self.numberToWordsMap[11] = 'Eleven '
-      self.numberToWordsMap[12] = 'Twelve '
-      self.numberToWordsMap[13] = 'Thirteen '
-      self.numberToWordsMap[14] = 'Fourteen '
-      self.numberToWordsMap[15] = 'Fifteen '
-      self.numberToWordsMap[16] = 'Sixteen '
-      self.numberToWordsMap[17] = 'Seventeen '
-      self.numberToWordsMap[18] = 'Eighteen '
-      self.numberToWordsMap[19] = 'Nineteen '
-      self.numberToWordsMap[20] = 'Twenty '
-      self.numberToWordsMap[30] = 'Thirty '
-      self.numberToWordsMap[40] = 'Fourty '
-      self.numberToWordsMap[50] = 'Fifty '
-      self.numberToWordsMap[60] = 'Sixty '
-      self.numberToWordsMap[70] = 'Seventy '
-      self.numberToWordsMap[80] = 'Eighty '
-      self.numberToWordsMap[90] = 'Ninty '
+      self.numberToWordsMap[1] = 'One'
+      self.numberToWordsMap[2] = 'Two'
+      self.numberToWordsMap[3] = 'Three'
+      self.numberToWordsMap[4] = 'Four'
+      self.numberToWordsMap[5] = 'Five'
+      self.numberToWordsMap[6] = 'Six'
+      self.numberToWordsMap[7] = 'Seven'
+      self.numberToWordsMap[8] = 'Eight'
+      self.numberToWordsMap[9] = 'Nine'
+      self.numberToWordsMap[10] = 'Ten'
+      self.numberToWordsMap[11] = 'Eleven'
+      self.numberToWordsMap[12] = 'Twelve'
+      self.numberToWordsMap[13] = 'Thirteen'
+      self.numberToWordsMap[14] = 'Fourteen'
+      self.numberToWordsMap[15] = 'Fifteen'
+      self.numberToWordsMap[16] = 'Sixteen'
+      self.numberToWordsMap[17] = 'Seventeen'
+      self.numberToWordsMap[18] = 'Eighteen'
+      self.numberToWordsMap[19] = 'Nineteen'
+      self.numberToWordsMap[20] = 'Twenty'
+      self.numberToWordsMap[30] = 'Thirty'
+      self.numberToWordsMap[40] = 'Forty'
+      self.numberToWordsMap[50] = 'Fifty'
+      self.numberToWordsMap[60] = 'Sixty'
+      self.numberToWordsMap[70] = 'Seventy'
+      self.numberToWordsMap[80] = 'Eighty'
+      self.numberToWordsMap[90] = 'Ninety'
 
     def getWords(self, num):
       digits = []
@@ -52,28 +52,53 @@ class Solution(object):
         digits.append(int(testNum/devide))
         testNum -= digits[-1] * devide
         devide = devide/10
-      if num >= 100:
+        if testNum < 20 and testNum > 10:
+          digits.append(testNum)
+          break
+
+      while len(digits) < 3:
+        digits.append(0)
+
+      result = []
+      if digits[0] >0:
+        result.append(self.numberToWordsMap[digits[0]] + ' Hundred')
+      if digits[1] >0:
         try:
-          print '%sHundred %s%s' % (self.numberToWordsMap[digits[0]], self.numberToWordsMap[digits[1]*10], self.numberToWordsMap[digits[2]])
+          result.append(self.numberToWordsMap[digits[1]*10])
         except:
-          print '%sHundred' % (self.numberToWordsMap[digits[0]])
-      elif num >= 10:
-        print '%s%s' % (self.numberToWordsMap[digits[1]*10], self.numberToWordsMap[digits[2]])
-      else:
-        print '%s' % (self.numberToWordsMap[digits[2]])
+          result.append(self.numberToWordsMap[digits[1]])
+      if digits[2] >0:
+        result.append(self.numberToWordsMap[digits[2]])
+      return ' '.join(result)
 
     def numberToWords(self, num):
-      if num<1000:
-        getWords(num)
+      if num == 0:
+        return 'Zero'
+      values = []
+      testNum = num
+      devide = 1000000000
+      units = [' Billion', ' Million', ' Thousand', '']
+      while testNum > 0:
+        values.append(int(testNum/devide))
+        testNum -= values[-1] * devide
+        devide = devide/1000
+      result = []
+      for idx in range(len(values)):
+        if values[idx] > 0:
+          result.append(self.getWords(values[idx]) + units[idx])
+
+      return ' '.join(result)
 
 if __name__ == "__main__":
     test = Solution()
-    test.getWords(55)
-    test.getWords(132)
-    test.getWords(100)
-    test.getWords(101)
-    test.getWords(999)
-    test.getWords(001)
-    test.getWords(01)
-    test.getWords(1)
+    print test.getWords(55)
+    print test.getWords(132)
+    print test.getWords(100)
+    print test.getWords(101)
+    print test.getWords(999)
+    print test.getWords(001)
+    print test.getWords(01)
+    print test.getWords(123)
+    print test.getWords(113)
+    print test.numberToWords(100202)
 
