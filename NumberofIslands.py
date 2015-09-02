@@ -47,7 +47,7 @@ class Solution(object):
       n = len(grid)
       m = len(grid[0])
 
-      visited = [[False for x in range(m)] for x in range(n)]
+      visited = [[False for j in range(m)] for i in range(n)]
       self.grid = grid
 
       for i in xrange(n):
