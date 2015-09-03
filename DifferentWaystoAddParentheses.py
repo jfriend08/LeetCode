@@ -30,32 +30,46 @@ class Solution(object):
     def nextIdxFromI(self, i, string):
       for idx in range(i+1,len(string)):
         if string[idx] == '+' or string[idx] == '-' or string[idx] == '*':
-          return idx +1
+          if string[idx+1] == '+' or string[idx+1] == '-' or string[idx+1] == '*':
+            return idx + 2
+          return idx + 1
 
     def isValidString(self, string):
-      count_normal = 0
-      count_neg = 0
-      for idx in range(len(string)):
-        if string[idx] == '+' or string[idx] == '*':
-          count_normal += 1
-        elif [idx] == '-':
-          count_neg += 1
-      return count_normal >0 or count_neg > 1
+      hasSignAtFront = string[0] == '-' or string[0] == '+' or string[0] == '*'
+      for idx in range(1,len(string)):
+        hasSignAtBack = string[idx] == '-' or string[idx] == '+' or string[idx] == '*'
+        if hasSignAtBack:
+          break
 
+      if hasSignAtFront and hasSignAtBack:
+        return True
+      elif not hasSignAtFront and hasSignAtBack:
+        return True
+      elif not hasSignAtFront and not hasSignAtBack:
+        return False
+      else:
+        return False
+    def findOptIdxFromI(i,string):
+      for idx in range(i, len(string)):
+        if string[idx] == '-' or string[idx] == '+' or string[idx] == '*':
+          return idx
     def calculate (self, string):
       if len(string) != 3:
         if string[0] == '-':
-          val1 = -int(string[1])
-          opt = string[2]
-          val2 = int(string[3])
+          j = self.findOptIdxFromI(1,string)
+          val1 = -int(string[1:j])
+          opt = string[j]
+          val2 = int(string[j+1:len(string)])
         else:
-          val1 = int(string[0])
-          opt = string[1]
+          j = self.findOptIdxFromI(0,string)
+          val1 = int(string[0:j])
+          opt = string[j]
           val2 = -int(string[3])
       else:
         val1 = int(string[0])
         opt = string[1]
         val2 = int(string[2])
+
       if opt == '+':
         return str(val1 + val2)
       elif opt == '-':
@@ -66,28 +80,31 @@ class Solution(object):
         return
 
     def diffWaysToCompute(self, input):
-      print input
+      print 'input: %s'%input
       size = len(input)
       print self.isValidString(input)
-      if self.isValidString(input):
+      if not self.isValidString(input):
+        print 'append'
         self.allSol.append(input)
-      newStrings = []
-      i = 0
-      while i < size-2:
-        if input[i+2] == '-' or input[0] == '-':
-          j = i+4
-        else:
-          j = i+3
-        sub = input[i:j]
-        newStrings.append(input[0:i] + self.calculate(sub) + input[j:size])
-        i = self.nextIdxFromI(i, input)
-      print newStrings
-      map(self.diffWaysToCompute, newStrings)
+      else:
+        newStrings = []
+        i = 0
+        while i < size-2:
+          if input[i+2] == '-' or input[0] == '-':
+            j = i+4
+          else:
+            j = i+3
+          sub = input[i:j]
+          newStrings.append(input[0:i] + self.calculate(sub) + input[j:size])
+          i = self.nextIdxFromI(i, input)
+        print newStrings
+        map(self.diffWaysToCompute, newStrings)
       return self.allSol
 
 if __name__ == "__main__":
     test = Solution()
     print 'result: %s' % test.diffWaysToCompute("2*3-4*5")
+    print '--------------------'
     print 'result: %s' % test.diffWaysToCompute("2*-3-4*5")
 
 
