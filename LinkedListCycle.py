@@ -13,8 +13,13 @@ Can you solve it without using extra space?Linked List Cycle
 
 class Solution(object):
     def hasCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
-        
+        if not head or not head.next:
+          return False
+        fastP = head.next.next
+        slowP = head
+        while fastP != slowP:
+          if fastP == None or slowP == None or fastP.next == None:
+            return False
+          fastP = fastP.next.next
+          slowP = slowP.next
+        return True
