@@ -9,12 +9,28 @@ class Solution(object):
         self.maxProfitMatrix = None
 
     def maxProfitHelper(self, prices, i, j):
-        for k in range(i,j):
-          tmpVal = self.maxProfitHelper(prices[i:k]) + self.maxProfitHelper(prices[k:j])
+        if i == j:
+          return self.maxProfitMatrix[i][j]
+        elif j == i+1 and prices[i] < prices[j]:
+          self.maxProfitMatrix[i][j] = prices[j] - prices[i]
+          return self.maxProfitMatrix[i][j]
+        elif j == i+1 and prices[i] >= prices[j]:
+          self.maxProfitMatrix[i][j] = 0
+          return self.maxProfitMatrix[i][j]
 
+        for k in range(i,j+1):
+          print self.maxProfitMatrix
+          tmpVal = self.maxProfitHelper(prices, i, k) + self.maxProfitHelper(prices, k+1, j)
+          if tmpVal > self.maxProfitMatrix[i][j]:
+            self.maxProfitMatrix[i][j] = tmpVal
 
 
     def maxProfit(self, prices):
+        if not prices:
+          return 0
         tmpMin = -sys.maxint - 1
         self.maxProfitMatrix = [[tmpMin for x in range(len(prices))] for x in range(len(prices))]
+        for i in range(len(prices)):
+          self.maxProfitMatrix[i][i] = 0
         self.maxProfitHelper(prices, 0, len(prices)-1)
+        return self.maxProfitMatrix[0][len(prices)-1]
