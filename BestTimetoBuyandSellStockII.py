@@ -5,9 +5,10 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 '''
 
 class Solution(object):
+    def __init__(self):
+      self.maxProfitMatrix = {}
+
     def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        
+        tmpMax = -sys.maxint - 1
+        for k in range(len(prices)):
+          self.maxProfit(prices[:k]) + self.maxProfit(prices[k:])
