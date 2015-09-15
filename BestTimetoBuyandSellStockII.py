@@ -6,9 +6,15 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 
 class Solution(object):
     def __init__(self):
-      self.maxProfitMatrix = {}
+        self.maxProfitMatrix = None
+
+    def maxProfitHelper(self, prices, i, j):
+        for k in range(i,j):
+          tmpVal = self.maxProfitHelper(prices[i:k]) + self.maxProfitHelper(prices[k:j])
+
+
 
     def maxProfit(self, prices):
-        tmpMax = -sys.maxint - 1
-        for k in range(len(prices)):
-          self.maxProfit(prices[:k]) + self.maxProfit(prices[k:])
+        tmpMin = -sys.maxint - 1
+        self.maxProfitMatrix = [[tmpMin for x in range(len(prices))] for x in range(len(prices))]
+        self.maxProfitHelper(prices, 0, len(prices)-1)
