@@ -45,7 +45,7 @@ class MedianFinder:
                 idx_hi = idx_m
             else:
                 break
-        print "idx_lo", idx_lo, "idx_hi", idx_hi
+        # print "idx_lo", idx_lo, "idx_hi", idx_hi
         self.myList.insert(idx_lo, num)
         # self.myList.append(num)
         # self.myList = sorted(self.myList)
