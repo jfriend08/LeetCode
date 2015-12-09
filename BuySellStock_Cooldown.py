@@ -40,3 +40,4 @@ class Solution(object):
 
 sol = Solution()
 print sol.maxProfit([1, 2, 3, 0, 2])
+print sol.maxProfit([5, 0, 100, 0, 4])
