@@ -23,16 +23,6 @@ class Solution(object):
     results = []
     remain = self.target - sum(loc_sumlist)
 
-    if len(candidates) != 0 and remain == candidates[0]:
-      loc_sumlist.append(candidates[0])
-      results.append(loc_sumlist)
-      return results
-
-    if sum(sumlist) == self.target:
-      results.append(sumlist)
-      return results
-
-    print sumlist, self.target
     for elm in sumlist:
       mod = remain % elm
       if mod == 0:
@@ -42,6 +32,15 @@ class Solution(object):
         loc_sumlist = sumlist[:]
       else:
         continue
+
+    if len(candidates) != 0 and remain == candidates[0]:
+      loc_sumlist.append(candidates[0])
+      results.append(loc_sumlist)
+      return results
+
+    if sum(sumlist) == self.target:
+      results.append(sumlist)
+      return results
 
     if len(candidates) == 0:
       return results
@@ -63,9 +62,9 @@ class Solution(object):
     return self.combineSumHandler(candidates, [])
 
 sol = Solution()
-# print sol.combinationSum([2,3,6,7], 7)
-# print sol.combinationSum([1], 2)
-# print sol.combinationSum([1, 3, 4, 2], 4)
+print sol.combinationSum([2,3,6,7], 7)
+print sol.combinationSum([1], 2)
+print sol.combinationSum([1, 3, 4, 2], 4)
 print sol.combinationSum([1, 2], 3)
 
 
