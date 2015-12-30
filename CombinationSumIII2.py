@@ -24,9 +24,10 @@ Output:
 
 class Solution(object):
   def findResHelper(self, k, n, cand):
+    print k, n, cand
     if n == 0 and k == 0:
       return [[]]
-    if n != 0 and k == 0:
+    if n != 0 and k == 0 or n < cand[0]:
       return
 
     res = []
@@ -45,13 +46,14 @@ class Solution(object):
 
 
   def combinationSum3(self, k, n):
-    if n < ((1 + 4)*4)/2 or n > ((9+9-k)*k)/2:
+    if n < ((1 + k)*k)/2 or n > ((9+9-k+1)*k)/2:
       return []
     cand = [ i+1 for i in xrange(9)]
     return self.findResHelper(k, n, cand)
 
 
 sol = Solution()
-print sol.combinationSum3(4,1)
-print sol.combinationSum3(4,54)
-print sol.combinationSum3(4,24)
+# print sol.combinationSum3(3,9)
+# print sol.combinationSum3(4,24)
+# print sol.combinationSum3(2,6)
+print sol.combinationSum3(9,45)
