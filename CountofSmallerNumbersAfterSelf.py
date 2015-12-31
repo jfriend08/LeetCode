@@ -48,7 +48,9 @@ class Solution(object):
       num = nums[i]
       idx = self.findIndex(curlist, num)
       res[i] = idx + 1
-      curlist = curlist[:idx+1] + [num] + curlist[idx+1:]
+      curlist.append(num)
+      curlist = sorted(curlist)
+      # curlist = curlist[:idx+1] + [num] + curlist[idx+1:]
 
     return res
 
