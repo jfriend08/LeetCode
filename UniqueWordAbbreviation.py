@@ -55,7 +55,6 @@ class ValidWordAbbr(object):
       query = word[0] + str(len(word)-2) + word[-1]
     else:
       query = word
-    print self.dict, set([query])
     return not query in self.dict or self.dict[query] == set([word])
 
 arr = ["deer", "door", "cake", "card"]
