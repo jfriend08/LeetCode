@@ -22,9 +22,6 @@ All words contain only lowercase alphabetic characters.
 '''
 
 class Solution(object):
-  def __init__(self):
-    pass
-
   def isOneLetterDiffer(self, w1, w2):
     if len(w1) != len(w2):
       return False
@@ -35,10 +32,51 @@ class Solution(object):
         diffCount += 1
     return diffCount == 1
 
+  def findLaddersUtil(self, beginWord, endWord, res, collect, preIdx, letterMap, wordMap):
+    if self.isOneLetterDiffer(beginWord, endWord):
+      res += [collect+[endWord]]
+      return
+    elif len(preIdx.keys()) == len(endWord):
+      return
+
+    for i in xrange(len(beginWord)):
+      if i in preIdx:
+        continue
+      else:
+        for c in letterMap[i]:
+          wordA = list(beginWord)
+          wordA[i] = c
+          newW = "".join(wordA)
+          if newW in wordMap:
+            copyPreIdx = preIdx.copy()
+            copyPreIdx[i] = True
+            self.findLaddersUtil(newW, endWord, res, collect+[newW], copyPreIdx, letterMap, wordMap)
+    return
+
+
+  def makeDict(self, wordlist):
+    letterMap, wordMap = {}, {}
+    for i in xrange(len(wordList)):
+      word = wordList[i]
+      wordMap[word] = True
+      for i in xrange(len(word)):
+        if not i in letterMap:
+          letterMap[i] = [word[i]]
+        else:
+          letterMap[i] += [word[i]]
+    for key in letterMap.keys():
+      letterMap[key] = set(letterMap[key])
+    return letterMap, wordMap
+
   def findLadders(self, beginWord, endWord, wordlist):
-    """
-    :type beginWord: str
-    :type endWord: str
-    :type wordlist: Set[str]
-    :rtype: List[List[int]]
-    """
+    letterMap, wordMap = self.makeDict(wordlist)
+    res = []
+    self.findLaddersUtil(beginWord, endWord, res, [beginWord], {}, letterMap, wordMap)
+    print res
+
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log"]
+
+sol = Solution()
+sol.findLadders(beginWord, endWord, wordList)
