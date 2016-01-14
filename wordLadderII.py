@@ -54,11 +54,10 @@ class Solution(object):
     return
 
 
-  def makeDict(self, wordlist):
-    letterMap, wordMap = {}, {}
+  def makeDict(self, wordList):
+    letterMap = {}
     for i in xrange(len(wordList)):
-      word = wordList[i]
-      wordMap[word] = True
+      word = list(wordList)[i]
       for i in xrange(len(word)):
         if not i in letterMap:
           letterMap[i] = [word[i]]
@@ -66,17 +65,17 @@ class Solution(object):
           letterMap[i] += [word[i]]
     for key in letterMap.keys():
       letterMap[key] = set(letterMap[key])
-    return letterMap, wordMap
+    return letterMap, wordList
 
   def findLadders(self, beginWord, endWord, wordlist):
     letterMap, wordMap = self.makeDict(wordlist)
     res = []
     self.findLaddersUtil(beginWord, endWord, res, [beginWord], {}, letterMap, wordMap)
-    print res
+    return res
 
 beginWord = "hit"
 endWord = "cog"
-wordList = ["hot","dot","dog","lot","log"]
+wordList = set(["hot","dot","dog","lot","log"])
 
 sol = Solution()
-sol.findLadders(beginWord, endWord, wordList)
+print sol.findLadders(beginWord, endWord, wordList)
